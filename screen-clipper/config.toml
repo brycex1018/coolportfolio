@@ -1,0 +1,91 @@
+[recording]
+# Frame rate for screen capture (15-60 recommended)
+fps = 30
+
+# How many minutes to keep in circular buffer (1-1440)
+# 5 min ≈ 200MB, 10 min ≈ 400MB, 60 min ≈ 2.4GB (at 1080p)
+buffer_duration_minutes = 5
+
+# Resolution scaling factor (0.5 = half resolution, 1.0 = full)
+# Lower values reduce CPU and memory usage
+resolution_scale = 1.0
+
+# Video codec to use
+# Options: "mp4v" (compatible), "H264" (better quality), "XVID"
+codec = "mp4v"
+
+[keybinds]
+# Hotkey to save the current buffer as a clip
+# Options: "f9", "f10", "ctrl+shift+s", etc.
+save_clip = "f9"
+
+# Hotkey to pause/resume recording
+pause_recording = "f8"
+
+# Hotkey to exit the application
+exit_app = "esc"
+
+[storage]
+# Directory where clips will be saved
+output_directory = "./clips"
+
+# Filename format (supports strftime format codes)
+# %Y=year, %m=month, %d=day, %H=hour, %M=minute, %S=second
+filename_format = "clip_%Y%m%d_%H%M%S.mp4"
+
+# Maximum number of clips to keep (0 = unlimited)
+# Oldest clips are auto-deleted when this limit is reached
+max_clips = 100
+
+[performance]
+# Use GPU acceleration if available (requires GPU-enabled OpenCV)
+use_gpu = false
+
+# Number of threads for encoding (0 = auto-detect)
+thread_count = 0
+
+# Maximum memory to use for buffer in MB (0 = unlimited)
+# Buffer will be moved to disk when this limit is reached
+memory_limit_mb = 1024
+
+# Quality setting (1-10, higher = better quality but larger files)
+quality = 7
+
+[privacy]
+# Show a visual indicator that recording is active
+show_recording_indicator = true
+
+# Applications to auto-pause recording (list of process names)
+# Example: ["chrome.exe", "banking-app.exe"]
+auto_pause_apps = []
+
+# Auto-clear buffer when these apps are detected
+auto_clear_apps = []
+
+[monitor]
+# Which monitor to capture (1 = primary, 2 = secondary, 0 = all)
+monitor_index = 1
+
+# Capture specific region instead of full monitor
+# Leave empty to capture full monitor
+# Format: [left, top, width, height]
+capture_region = []
+
+[advanced]
+# Enable motion detection to skip identical frames
+motion_detection = false
+
+# Minimum motion threshold (0-255)
+motion_threshold = 10
+
+# Capture mouse cursor
+capture_cursor = true
+
+# Capture audio (requires additional setup)
+capture_audio = false
+
+# Enable debug logging
+debug_mode = false
+
+# Auto-start on system boot
+autostart = false
