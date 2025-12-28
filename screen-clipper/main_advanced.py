@@ -128,7 +128,14 @@ class ScreenClipper:
     def capture_frame(self, sct):
         """Capture a single frame from the screen."""
         try:
-            monitor = sct.monitors[self.config.MONITOR_INDEX]
+            # Validate monitor index
+            if self.config.MONITOR_INDEX >= len(sct.monitors):
+                self.logger.warning(f"Monitor index {self.config.MONITOR_INDEX} not available, using primary monitor")
+                monitor_idx = 1 if len(sct.monitors) > 1 else 0
+            else:
+                monitor_idx = self.config.MONITOR_INDEX
+            
+            monitor = sct.monitors[monitor_idx]
             img = sct.grab(monitor)
             frame = np.array(img)
             frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
@@ -153,8 +160,9 @@ class ScreenClipper:
         
         with self.save_lock:
             try:
-                timestamp = datetime.now().strftime(self.config.FILENAME_FORMAT.replace("clip_", ""))
-                filename = self.output_dir / f"clip_{timestamp}"
+                # Generate timestamp-based filename
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                filename = self.output_dir / f"clip_{timestamp}.mp4"
                 
                 height, width = frames[0].shape[:2]
                 fourcc = cv2.VideoWriter_fourcc(*self.config.CODEC)

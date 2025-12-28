@@ -47,7 +47,12 @@ def capture_frame(sct):
     Returns:
         numpy.ndarray: Captured frame in BGR format
     """
-    monitor = sct.monitors[1]  # Primary monitor
+    # Ensure monitor exists, fall back to first available
+    if len(sct.monitors) < 2:
+        monitor = sct.monitors[0]  # Use all monitors
+    else:
+        monitor = sct.monitors[1]  # Primary monitor
+    
     img = sct.grab(monitor)
     frame = np.array(img)
     return cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
